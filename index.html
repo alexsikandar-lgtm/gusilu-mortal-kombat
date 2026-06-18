@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUSILU: Mortal Kombat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer" class="game-container">
+        <!-- Pantalla Principal -->
+        <div id="mainMenu" class="screen active">
+            <div class="menu-content">
+                <div class="title">
+                    <h1 class="game-title">GUSILU</h1>
+                    <p class="subtitle">MORTAL KOMBAT</p>
+                </div>
+                <div class="menu-buttons">
+                    <button class="btn btn-primary" onclick="startGame()">INICIAR JUEGO</button>
+                    <button class="btn btn-secondary" onclick="showCredits()">CRÉDITOS</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla de Selección de Dificultad -->
+        <div id="difficultyScreen" class="screen">
+            <div class="difficulty-content">
+                <h2>SELECCIONA DIFICULTAD</h2>
+                <div class="difficulty-buttons">
+                    <button class="btn difficulty-btn" onclick="setDifficulty('facil')">
+                        <span class="difficulty-name">FÁCIL</span>
+                        <span class="difficulty-desc">Para iniciados</span>
+                    </button>
+                    <button class="btn difficulty-btn" onclick="setDifficulty('normal')">
+                        <span class="difficulty-name">NORMAL</span>
+                        <span class="difficulty-desc">Desafío equilibrado</span>
+                    </button>
+                    <button class="btn difficulty-btn" onclick="setDifficulty('mortal')">
+                        <span class="difficulty-name">MORTAL</span>
+                        <span class="difficulty-desc">Para maestros</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla del Juego Principal -->
+        <div id="gameScreen" class="screen">
+            <div class="game-hud">
+                <div class="player-status">
+                    <div class="character-name">GUSILU</div>
+                    <div class="health-bar">
+                        <div id="playerHealth" class="health-fill"></div>
+                    </div>
+                    <div class="health-text"><span id="playerHealthText">100</span>/100</div>
+                </div>
+
+                <div class="round-info">
+                    <div id="roundNumber" class="round-display">RONDA 1</div>
+                </div>
+
+                <div class="enemy-status">
+                    <div id="enemyName" class="character-name">ENEMY</div>
+                    <div class="health-bar">
+                        <div id="enemyHealth" class="health-fill"></div>
+                    </div>
+                    <div class="health-text"><span id="enemyHealthText">100</span>/100</div>
+                </div>
+            </div>
+
+            <div class="game-arena">
+                <div id="playerCharacter" class="character player"></div>
+                <div id="enemyCharacter" class="character enemy"></div>
+                <div id="combatLog" class="combat-log">
+                    <p class="log-entry">Batalla iniciada...</p>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <div class="control-info">
+                    <p><strong>Q</strong> - Patada Rápida | <strong>W</strong> - Puñetazo | <strong>E</strong> - Patada Fuerte | <strong>R</strong> - Especial</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla de Cinemática de Encuentro -->
+        <div id="encounterCinematic" class="screen">
+            <div class="encounter-container">
+                <p id="encounterStory" class="story-text"></p>
+            </div>
+            <div class="cinematic-skip">Presiona ESPACIO para continuar</div>
+        </div>
+
+        <!-- Pantalla de Victoria de Ronda -->
+        <div id="victoryScreen" class="screen">
+            <div class="victory-content">
+                <div class="victory-text">
+                    <h2>¡VICTORIA!</h2>
+                    <p id="victoryMessage"></p>
+                </div>
+                <div class="victory-stats">
+                    <p>Enemigo derrotado: <span id="defeatedEnemy"></span></p>
+                    <p>Batallas: <span id="remainingLives"></span>/7</p>
+                </div>
+                <button class="btn btn-primary" onclick="nextRound()">SIGUIENTE BATALLA</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Derrota -->
+        <div id="defeatScreen" class="screen">
+            <div class="defeat-content">
+                <h2>DERROTA</h2>
+                <p id="defeatMessage"></p>
+                <div class="defeat-stats">
+                    <p>Enemigo: <span id="defeaterName"></span></p>
+                    <p>Batallas: <span id="battlesCompleted"></span>/7</p>
+                </div>
+                <button class="btn btn-primary" onclick="mainMenu()">VOLVER AL MENÚ</button>
+            </div>
+        </div>
+
+        <!-- Pantalla Final de Victoria -->
+        <div id="endingScreen" class="screen">
+            <div class="ending-content">
+                <div class="ending-cinematic">
+                    <p class="ending-line">Has derrotado a los 7 señores del caos...</p>
+                    <p class="ending-line">El equilibrio dimensional ha sido restaurado.</p>
+                    <p class="ending-line">La leyenda de GUSILU vivirá para siempre.</p>
+                </div>
+                <h1 class="ending-title">FIN DEL JUEGO</h1>
+                <button class="btn btn-primary" onclick="mainMenu()">VOLVER AL MENÚ</button>
+            </div>
+        </div>
+
+        <!-- Créditos -->
+        <div id="creditsScreen" class="screen">
+            <div class="credits-content">
+                <h2>CRÉDITOS</h2>
+                <div class="credits-list">
+                    <p><strong>Desarrollo:</strong> Gusilu Game Studio</p>
+                    <p><strong>Personajes:</strong> Creados por la comunidad</p>
+                    <p><strong>Dirección de Arte:</strong> Alex Sikandar</p>
+                    <p><strong>Banda Sonora:</strong> Maestro Gusilu</p>
+                </div>
+                <button class="btn btn-primary" onclick="mainMenu()">VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="characters.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
